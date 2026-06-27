@@ -1,12 +1,7 @@
+import { navItems } from "@/constant"
+
 const NavBar = () => {
-    const navItems = [
-        { label: "Store" },
-        { label: "Mac" }, 
-        {label: "Iphone"}, 
-        {label: "Watch"}, 
-        {label: "Vision"}, 
-        {label: "Airpods"}
-    ];
+
 
     return (
         <header>

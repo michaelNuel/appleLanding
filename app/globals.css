@@ -47,7 +47,16 @@ body {
 }
 
 * {
-  scrollbar-color: var(--color-dark-100) var(--color-black);
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+}
+
+::-webkit-scrollbar {
+  display: none !important;
 }
 
 :root {

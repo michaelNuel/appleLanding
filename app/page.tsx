@@ -1,12 +1,11 @@
-import Hero from "@/components/Hero";
-import NavBar from "@/components/Navbar";
-import Image from "next/image";
+import { Hero, NavBar, ProductView } from "@/components";
 
 export default function Home() {
   return (
   <main>
     <NavBar />
     <Hero />
+    <ProductView/>
   </main>
   );
 }

@@ -10,7 +10,7 @@ const ProductView = () => {
     const {color, scale, setColor, setScale } = useMacBookStore()
     return(
         <section id="product-viewer">
-             <h2>Take a Closer look.</h2>
+             <h2>Take a Closer lookkkkkkk.</h2>
 
              <div className="controls">
                 <p className="info">Macbook Pro {scale}" in Silver {color}</p>

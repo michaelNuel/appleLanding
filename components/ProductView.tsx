@@ -10,7 +10,7 @@ const ProductView = () => {
     const {color, scale, setColor, setScale } = useMacBookStore()
     return(
         <section id="product-viewer">
-             <h2>Take a Closer lookkkkkkk.</h2>
+             <h2>Take a Closer look.</h2>
 
              <div className="controls">
                 <p className="info">Macbook Pro {scale}" in Silver {color}</p>
@@ -32,7 +32,7 @@ const ProductView = () => {
                 {/* <Box position={[0, 1, 0]} scale={10 * scale} material-color={color} /> */}
                 {/* <ambientLight intensity={1} /> */}
                 <StudioLights />
-                <MacbookModel14 scale={0.06 } position={[0, 0, 0]} /> 
+                <MacbookModel14 scale={0.06 } position={[0, 0, 0]} />  
                 <OrbitControls enableZoom={false}/> 
              </Canvas>
         </section>

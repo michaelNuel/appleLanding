@@ -1,4 +1,5 @@
 'use client'
+import { useRef, useEffect } from "react";
 import { useGSAP } from "@gsap/react"
 import { useMediaQuery } from "react-responsive"
 import gsap from 'gsap';
@@ -8,6 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Showcase = () => {
     const isTablet = useMediaQuery({ query: '(max-width: 1024px)' })
+    const videoRef = useRef<HTMLVideoElement>(null)
 
     useGSAP(() => {
         if (!isTablet) {
@@ -15,9 +17,21 @@ const Showcase = () => {
                 scrollTrigger: {
                     trigger: "#showcase",
                     start: 'top top',
-                    end: 'bottom top', 
+                    end: 'bottom top',
                     scrub: true,
                     pin: true,
+                    onEnter: () => {
+                        videoRef.current?.play().catch(e => console.log(e));
+                    },
+                    onEnterBack: () => {
+                        videoRef.current?.play().catch(e => console.log(e));
+                    },
+                    onLeave: () => {
+                        videoRef.current?.pause();
+                    },
+                    onLeaveBack: () => {
+                        videoRef.current?.pause();
+                    }
                 }
             });
 
@@ -30,10 +44,18 @@ const Showcase = () => {
             );
         }
     }, [isTablet])
+
+    // Autoplay on mobile/tablet since ScrollTrigger timeline is disabled there
+    useEffect(() => {
+        if (isTablet && videoRef.current) {
+            videoRef.current.play().catch(e => console.log(e));
+        }
+    }, [isTablet])
+
     return (
         <section id="showcase">
             <div className="media">
-                <video src="/videos/game.mp4" loop muted autoPlay playsInline />
+                <video ref={videoRef} src="/videos/game.mp4" loop muted playsInline />
                 <div className="mask">
                     <img src="/mask-logo.svg" />
                 </div>

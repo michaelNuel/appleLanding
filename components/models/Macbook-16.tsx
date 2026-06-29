@@ -23,6 +23,8 @@ export default function MacbookModel16(props:React.ComponentPropsWithoutRef<'gro
     scene: THREE.Scene
   }
   const texture = useTexture('/screen.png')
+  texture.colorSpace = THREE.SRGBColorSpace
+  texture.needsUpdate = true
   useGSAP(() => {
     scene.traverse((child:THREE.Object3D) => {
       if(child instanceof THREE.Mesh){

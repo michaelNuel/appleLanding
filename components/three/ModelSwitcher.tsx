@@ -38,14 +38,14 @@ const moveGroup = (group: THREE.Object3D | null, x: number) => {
 }
 
 const ModelSwitcher = ({ scale, isMobile }: ModelSwitcherProps) => {
-   const SCALE_LARGE_DESKTOP = 0.8; 
-   const SCALE_SMALL_DESKTOP = 0.6;
+   // const SCALE_LARGE_DESKTOP = 0.8; 
+   // const SCALE_SMALL_DESKTOP = 0.6;
    // const SCALE_LARGE_MOBILE = 0.05;
    // const SCALE_SMALL_MOBILE = 0.03;
    const smallMacbookRef = useRef<THREE.Group>(null)
    const largeMacbookRef = useRef<THREE.Group>(null)
 
-   const showLargeMacbook = scale === SCALE_LARGE_DESKTOP || scale === SCALE_LARGE_DESKTOP 
+   const showLargeMacbook = scale === 0.08 || scale === 0.05
    useGSAP(() => {
 
       if (showLargeMacbook) {

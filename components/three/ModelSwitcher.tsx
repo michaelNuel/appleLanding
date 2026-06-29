@@ -66,12 +66,11 @@ const ModelSwitcher = ({ scale, isMobile }: ModelSwitcherProps) => {
 
    const controlsConfig = {
       snap: true,
-      speed: 1,
+      speed: isMobile ? 2.5 : 1.5,
       zoom: 1,
-      polar: [-Math.PI, Math.PI] as [number, number],
+      polar: (isMobile ? [-Math.PI / 12, Math.PI / 12] : [-Math.PI / 6, Math.PI / 6]) as [number, number],
       azimuth: [-Infinity, Infinity] as [number, number],
-      config: { mass: 1, tension: 0, friction: 26 }
-
+      config: { mass: 1, tension: 170, friction: 26 }
    }
 
    return (

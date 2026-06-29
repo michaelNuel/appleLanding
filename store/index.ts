@@ -9,7 +9,7 @@ interface Props {
 }
 
 const useMacBookStore = create<Props>((set) => ({
-    color: 'rgba(46, 44, 46, 1)', 
+    color: '#2e2c2e', 
     setColor: (color:string) => set({color}),
 
     scale: 0.08, 

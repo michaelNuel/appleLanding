@@ -5,7 +5,41 @@ const Hero = () => {
     const videoRef = useRef<HTMLVideoElement>(null)
 
     useEffect(() => {
-        if(videoRef.current) videoRef.current.playbackRate = 3;
+        const video = videoRef.current;
+        if (!video) return;
+
+        video.playbackRate = 3;
+
+        const playVideo = () => {
+            if (video.paused) {
+                video.play().catch((err) => {
+                    console.log("Autoplay prevented or interrupted:", err);
+                });
+            }
+        };
+
+        // Play when ready
+        if (video.readyState >= 3) {
+            playVideo();
+        } else {
+            video.addEventListener('canplay', playVideo);
+        }
+
+        // Recover from stalling
+        const handleWaiting = () => {
+            setTimeout(() => {
+                if (video && video.paused && !video.ended) {
+                    video.play().catch(() => {});
+                }
+            }, 100);
+        };
+
+        video.addEventListener('waiting', handleWaiting);
+
+        return () => {
+            video.removeEventListener('canplay', playVideo);
+            video.removeEventListener('waiting', handleWaiting);
+        };
     }, [])
     return ( 
         <section id="hero" >

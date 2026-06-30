@@ -34,7 +34,7 @@ const ModelScroll = () => {
       v.load()
 
     })
-  })
+  }, [])
 
   useGSAP(() => {
     //3D model Rotation animation

@@ -18,12 +18,38 @@ const OFFSET_DISTANCE = 5;
 const fadeMeshes = (group: THREE.Object3D | null, opacity: number) => {
    if (!group) return;
 
+   if (opacity > 0) {
+      group.visible = true;
+   }
+
+   let completedCount = 0;
+   const meshes: THREE.Mesh[] = [];
+
    group.traverse((child: THREE.Object3D) => {
       if (child instanceof THREE.Mesh) {
-         child.material.transparent = true;
-         gsap.to(child.material, { opacity, duration: ANIMATION_DURATION });
+         meshes.push(child);
       }
-   })
+   });
+
+   if (meshes.length === 0 && opacity === 0) {
+      group.visible = false;
+      return;
+   }
+
+   meshes.forEach((mesh) => {
+      const mat = mesh.material as THREE.Material;
+      mat.transparent = true;
+      gsap.to(mat, {
+         opacity,
+         duration: ANIMATION_DURATION,
+         onComplete: () => {
+            completedCount++;
+            if (opacity === 0 && completedCount === meshes.length) {
+               group.visible = false;
+            }
+         }
+      });
+   });
 }
 
 

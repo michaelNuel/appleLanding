@@ -23,8 +23,49 @@ export default function MacbookModel(props: React.ComponentPropsWithoutRef<'grou
     scene: THREE.Scene
   }
 
-  const screen = useVideoTexture(texture)
-  screen.colorSpace = THREE.SRGBColorSpace
+  const initialTexture = useVideoTexture('/videos/feature-1.mp4')
+  initialTexture.colorSpace = THREE.SRGBColorSpace
+
+  const texturesRef = React.useRef<Record<string, THREE.VideoTexture>>({
+    '/videos/feature-1.mp4': initialTexture
+  })
+
+  React.useEffect(() => {
+    const videoPaths = [
+      '/videos/feature-2.mp4',
+      '/videos/feature-3.mp4',
+      '/videos/feature-4.mp4',
+      '/videos/feature-5.mp4',
+    ]
+
+    videoPaths.forEach((path) => {
+      const video = document.createElement('video')
+      video.src = path
+      video.muted = true
+      video.loop = true
+      video.playsInline = true
+      video.crossOrigin = 'anonymous'
+      video.load()
+      video.play().catch((e) => console.log("Preload video play failed:", e))
+
+      const videoTexture = new THREE.VideoTexture(video)
+      videoTexture.colorSpace = THREE.SRGBColorSpace
+      texturesRef.current[path] = videoTexture
+    })
+
+    return () => {
+      Object.keys(texturesRef.current).forEach((key) => {
+        if (key !== '/videos/feature-1.mp4') {
+          const vid = texturesRef.current[key].image as HTMLVideoElement
+          vid.pause()
+          vid.src = ""
+          vid.load()
+        }
+      })
+    }
+  }, [])
+
+  const screen = texturesRef.current[texture] || initialTexture
   screen.needsUpdate = true
 
   useGSAP(() => {

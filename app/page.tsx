@@ -1,4 +1,4 @@
-import { Hero, NavBar, ProductView } from "@/components";
+import { Hero, NavBar, ProductView, Loader } from "@/components";
 import Features from "@/components/Features";
 import Footer from "@/components/Footer";
 import Highlights from "@/components/Highlights";
@@ -11,6 +11,7 @@ gsap.registerPlugin(ScrollTrigger)
 export default function Home() {
   return (
   <main>
+    <Loader />
     <NavBar />
     <Hero />
     <ProductView/>
